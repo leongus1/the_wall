@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Success! Welcome {{request.session.name}}!</h1>
+    
+    <p id="success">Successfully {{request.session.reg_or_log}}!</p> 
+    <!--make is so it either says register or log in -->
+    <br><br>
+    <a id="logout" href="/logged_out">Log Out</a>
+
+
+</body>
+</html>

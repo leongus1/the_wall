@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall Assignment</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+
+
+</head>
+<body>
+    <div id="header">
+            <h1>Coding Dojo Wall</h1>
+            <div id="right-header">
+                <p id="right-side">Welcome {{request.session.name}}</p>
+                <a href="/logged_out/">log off</a>
+            </div>
+        </div>
+    <div id="canvas">
+        <h2>Post a message</h2>
+        <form action="/wall/post_message/" method="post">
+            {% csrf_token %}
+            <textarea name="message" id="" cols="60" rows="3">
+
+            </textarea><br>
+            <input type="hidden" name="user_id" value>
+            <input type="submit" value="Post message">
+        </form>
+
+        {% for message in messages %}
+            <h4>{{message.user.first_name}} {{message.user.last_name}} - {{message.modified_at}}</h4>
+            <ul>
+                <li>{{message.message}}</li>
+                <ul>
+            {% for comment in message.comments.all %}
+                    <h4>{{comment.user.first_name}} {{comment.user.last_name}} - {{comment.modified_at}}</h4>
+                    <li>{{comment.comment}}</li>
+            {% endfor %}
+                
+                <h4>Post a comment</h4>
+                <form action="/wall/post_comment/" method="post">
+                    {% csrf_token %}
+                    <textarea name="comment" id="" cols="60" rows="3">
+
+                    </textarea><br>
+                    <input type="hidden" name="message_id" value={{message.id}}>
+                    
+                    <input type="submit" value="Post comment">
+                </form>
+                </ul>
+            </ul>
+        {% endfor %}
+    </div>
+    
+</body>
+</html>
