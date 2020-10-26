@@ -15,5 +15,13 @@ def post_message(request):
 
 def post_comment(request):
     Comments.objects.create(comment=request.POST['comment'], user=Users.objects.get(id=request.session['user_id']), message=Messages.objects.get(id=request.POST['message_id']))
-    
+    return redirect('/wall')
+
+
+def delete_message(request, message_id):
+    Messages.objects.get(id=message_id).delete()
+    return redirect('/wall')
+
+def delete_comment(request, comment_id):
+    Comments.objects.get(id=comment_id).delete()
     return redirect('/wall')

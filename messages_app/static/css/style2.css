@@ -1,3 +1,7 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 #header{
     width: 100%;
     /* margin: 10px 0px; */
@@ -7,17 +11,23 @@
     border-bottom: 2px solid black;
 }
 
-ul, li, h4{
+ul, li, h5{
     list-style-type: none;
     margin: 3px;
+    font-size: 12px;
    
 }
 
-h4{
+h5{
     margin: 5px;
     list-style-type: none;
 }
 
+.date{
+    font-weight: lighter;
+    font-size: 10px;
+    color: gray;
+}
 
 #header > h1{
     color: green;

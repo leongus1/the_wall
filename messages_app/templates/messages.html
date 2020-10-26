@@ -29,19 +29,28 @@
         </form>
 
         {% for message in messages %}
-            <h4>{{message.user.first_name}} {{message.user.last_name}} - {{message.modified_at}}</h4>
+            <h5>{{message.user.first_name}} {{message.user.last_name}}<span class="date"> - {{message.modified_at}}</span></h5>
             <ul>
-                <li>{{message.message}}</li>
+                <li>{{message.message}}
+                    {% if message.user.id == request.session.user_id %}
+                        <a href="/wall/delete_message/{{message.id}}"> (delete)</a>
+                    {% endif %}
+                </li>
+                
                 <ul>
             {% for comment in message.comments.all %}
-                    <h4>{{comment.user.first_name}} {{comment.user.last_name}} - {{comment.modified_at}}</h4>
-                    <li>{{comment.comment}}</li>
+                    <h5>{{comment.user.first_name}} {{comment.user.last_name}}<span class="date"> - {{comment.modified_at}}</span></h5>
+                    <li>{{comment.comment}}
+                         {% if comment.user.id == request.session.user_id %}
+                            <a href="/wall/delete_comment/{{comment.id}}"> (delete)</a>
+                        {% endif %}
+                    </li>
             {% endfor %}
                 
-                <h4>Post a comment</h4>
+                <h5>Post a comment</h5>
                 <form action="/wall/post_comment/" method="post">
                     {% csrf_token %}
-                    <textarea name="comment" id="" cols="60" rows="3">
+                    <textarea name="comment" cols="60" rows="3">
 
                     </textarea><br>
                     <input type="hidden" name="message_id" value={{message.id}}>
