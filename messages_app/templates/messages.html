@@ -29,11 +29,13 @@
         </form>
 
         {% for message in messages %}
-            <h5>{{message.user.first_name}} {{message.user.last_name}}<span class="date"> - {{message.modified_at}}</span></h5>
+            <h5 class="bigger">{{message.user.first_name}} {{message.user.last_name}}<span class="date"> - {{message.modified_at}}</span></h5>
             <ul>
-                <li>{{message.message}}
-                    {% if message.user.id == request.session.user_id %}
-                        <a href="/wall/delete_message/{{message.id}}"> (delete)</a>
+                <li class="bigger">{{message.message}}
+                    {% if message.user.id == request.session.user_id and message.timely %}
+                        
+                        <a href="/wall/delete_message/{{message.id}}"> (delete) </a>
+                        
                     {% endif %}
                 </li>
                 
@@ -41,7 +43,7 @@
             {% for comment in message.comments.all %}
                     <h5>{{comment.user.first_name}} {{comment.user.last_name}}<span class="date"> - {{comment.modified_at}}</span></h5>
                     <li>{{comment.comment}}
-                         {% if comment.user.id == request.session.user_id %}
+                         {% if comment.user.id == request.session.user_id and comment.timely %}
                             <a href="/wall/delete_comment/{{comment.id}}"> (delete)</a>
                         {% endif %}
                     </li>

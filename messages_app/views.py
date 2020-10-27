@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from messages_app.models import *
+from datetime import timezone, datetime
 
 # Create your views here.
 def index(request):
@@ -25,3 +26,6 @@ def delete_message(request, message_id):
 def delete_comment(request, comment_id):
     Comments.objects.get(id=comment_id).delete()
     return redirect('/wall')
+
+
+    
